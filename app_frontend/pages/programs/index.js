@@ -14,14 +14,12 @@ function isTokenExpired(token) {
     }
 }
 
-export default function AboutPage() {
+export default function ProgramsPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [bgIndex, setBgIndex] = useState(0);
     const [applicationCount, setApplicationCount] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const router = useRouter();
     const dropdownRef = useRef(null);
-    const bgImages = ['/images/school-bg1.jpg', '/images/school-bg2.jpg', '/images/school-bg3.jpg'];
 
     useEffect(() => {
         function checkAuth() {
@@ -65,28 +63,41 @@ export default function AboutPage() {
         router.push('/');
     };
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setBgIndex((prev) => (prev + 1) % bgImages.length);
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+    const programs = [
+        {
+            title: 'Science Track',
+            description: 'Explore cutting-edge science with hands-on experiments and research projects.',
+            image: '/images/science-program.jpg',
+            href: '/programs/science',
+        },
+        {
+            title: 'Arts Track',
+            description: 'Unleash your creativity through visual arts, music, and theater programs.',
+            image: '/images/arts-program.jpg',
+            href: '/programs/arts',
+        },
+        {
+            title: 'Sports Track',
+            description: 'Develop athletic skills and teamwork through competitive sports and fitness.',
+            image: '/images/sports-program.jpg',
+            href: '/programs/sports',
+        },
+        {
+            title: 'Tech Track',
+            description: 'Dive into coding, robotics, and technology innovation with expert guidance.',
+            image: '/images/tech-program.jpg',
+            href: '/programs/tech',
+        },
+        {
+            title: 'Leadership Program',
+            description: 'Build confidence and leadership skills through real-world projects and mentorship.',
+            image: '/images/leadership-program.jpg',
+            href: '/programs/leadership',
+        },
+    ];
 
     return (
-        <div className="relative flex flex-col min-h-screen">
-            <div className="absolute inset-0 z-[-1]">
-                {bgImages.map((src, idx) => (
-                    <Image
-                        key={idx}
-                        src={src}
-                        alt={`Background ${idx}`}
-                        fill
-                        className={`object-cover transition-opacity duration-1000 ease-in-out ${idx === bgIndex ? 'opacity-100' : 'opacity-0'}`}
-                    />
-                ))}
-                <div className="absolute inset-0 bg-white/70 backdrop-blur-sm" />
-            </div>
-
+        <div className="flex flex-col min-h-screen">
             <header className="fixed top-0 w-full bg-white shadow-md z-50">
                 <div className="container mx-auto flex items-center justify-between p-4">
                     <Link href="/" className="flex items-center gap-2 relative group">
@@ -161,29 +172,38 @@ export default function AboutPage() {
                 </div>
             </header>
 
-            <main className="pt-28">
-                <section className="container mx-auto px-6 py-16 bg-white/80 rounded-xl shadow-lg">
-                    <h2 className="text-5xl font-extrabold text-blue-800 text-center mb-10">About Our School</h2>
+            <main className="pt-20">
+                <section className="container mx-auto px-6 py-16 bg-white/90 rounded-xl shadow-lg">
+                    <h2 className="text-5xl font-extrabold text-blue-800 text-center mb-10">Our Programs</h2>
                     <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto text-center">
-                        <strong className="text-red-500">Bright Future High School</strong> is dedicated to nurturing young minds with a holistic education that blends academic excellence, creativity, and leadership. Our vibrant community fosters a supportive environment where every student thrives.
+                        Discover the diverse range of academic and extracurricular programs at <strong className="text-red-500">Bright Future High School</strong>. Each program is designed to inspire, challenge, and prepare students for a successful future.
                     </p>
-                    <div className="mt-16 flex justify-center flex-wrap gap-10">
-                        {[
-                            { letter: 'E', title: 'Excellence', desc: 'Striving for academic and personal growth' },
-                            { letter: 'C', title: 'Community', desc: 'Building a supportive and inclusive environment' },
-                            { letter: 'I', title: 'Innovation', desc: 'Embracing creativity and forward-thinking' },
-                            { letter: 'L', title: 'Leadership', desc: 'Empowering students to lead with confidence' }
-                        ].map((item, idx) => (
-                            <div key={idx} className="relative group cursor-pointer">
-                                <div className="w-36 h-36 bg-gradient-to-br from-blue-300 to-red-500 rounded-full flex items-center justify-center text-5xl font-extrabold text-white shadow-2xl border-4 border-white transition-transform duration-300 group-hover:scale-105">
-                                    {item.letter}
-                                </div>
-                                <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-60 opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 transition-all duration-300 z-20">
-                                    <div className="relative bg-white rounded-xl shadow-xl px-4 py-3 text-center text-gray-800">
-                                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rotate-45 shadow-sm"></div>
-                                        <h4 className="font-bold text-blue-600">{item.title}</h4>
-                                        <p className="text-sm mt-1">{item.desc}</p>
+                    <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {programs.map((program, idx) => (
+                            <div
+                                key={idx}
+                                className="relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transform hover:-translate-y-2 transition duration-300"
+                            >
+                                <div className="relative h-48">
+                                    <Image
+                                        src={program.image}
+                                        alt={program.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute top-2 left-2 bg-blue-800 bg-opacity-60 text-white text-xs font-semibold py-1 px-2 rounded">
+                                        Program
                                     </div>
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-bold text-blue-800 mb-2">{program.title}</h3>
+                                    <p className="text-gray-600 mb-4">{program.description}</p>
+                                    <Link
+                                        href={program.href}
+                                        className="inline-block bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-full transition-colors duration-200"
+                                    >
+                                        Learn More
+                                    </Link>
                                 </div>
                             </div>
                         ))}
@@ -191,57 +211,22 @@ export default function AboutPage() {
                 </section>
 
                 <section className="bg-blue-50/80 py-16 mt-12">
-                    <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center px-6">
-                        <div>
-                            <h3 className="text-4xl font-bold text-blue-800 mb-4">Our Mission</h3>
-                            <ul className="list-disc list-inside space-y-3 text-gray-700 text-lg">
-                                <li>Empower students with knowledge and skills for a global future</li>
-                                <li>Foster a community that values diversity and inclusion</li>
-                                <li>Promote innovative teaching to inspire lifelong learning</li>
-                                <li>Cultivate leadership and responsibility in every student</li>
-                            </ul>
-                        </div>
-                        <div className="w-full h-72 relative rounded-xl overflow-hidden shadow-xl">
-                            <Image src="/images/mission-school.jpg" alt="Our Mission" fill className="object-cover" />
-                        </div>
-                    </div>
-                </section>
-
-                <section className="bg-white/90 py-12 mt-12">
                     <div className="container mx-auto px-6 text-center">
-                        <h3 className="text-3xl font-bold text-blue-800 mb-6">What Our Community Says</h3>
-                        <p className="text-gray-700 max-w-xl mx-auto italic">
-                            “Bright Future High School gave my child the confidence to excel academically and socially.”
+                        <h3 className="text-3xl font-bold text-blue-800 mb-6">Ready to Join?</h3>
+                        <p className="text-gray-700 max-w-xl mx-auto mb-8">
+                            Start your journey with us! Explore our programs and apply today to become part of our vibrant community.
                         </p>
-                        <p className="text-sm text-gray-500 mt-2">— Parent from our community</p>
-                    </div>
-                </section>
-
-                <section className="container mx-auto px-6 py-16 bg-blue-50/80 mt-12 rounded-xl shadow-md">
-                    <h3 className="text-4xl font-extrabold text-blue-800 text-center mb-8">Our Team</h3>
-                    <div className="flex flex-wrap justify-center gap-8">
-                        {[
-                            { name: 'Dr. Somchai Sukjai', id: 'T001', role: 'Principal', image: '/images/principal.jpg' },
-                            { name: 'Ms. Naree Boonmee', id: 'T002', role: 'Head of Academics', image: '/images/teacher1.jpg' },
-                            { name: 'Mr. Anan Kitti', id: 'T003', role: 'Student Affairs Coordinator', image: '/images/teacher2.jpg' }
-                        ].map((member, idx) => (
-                            <div
-                                key={idx}
-                                className="w-72 bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-2xl transform hover:-translate-y-2 transition"
-                            >
-                                <div className="w-24 h-24 mx-auto mb-4 relative rounded-full overflow-hidden border-4 border-blue-400">
-                                    <Image src={member.image} alt={member.name} fill className="object-cover" />
-                                </div>
-                                <h4 className="text-xl font-semibold text-gray-800">{member.name}</h4>
-                                <p className="text-sm text-gray-500 mb-1">ID: {member.id}</p>
-                                <p className="text-sm text-gray-600">{member.role}</p>
-                            </div>
-                        ))}
+                        <Link
+                            href="/apply"
+                            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-full transition-colors duration-200"
+                        >
+                            Apply Now
+                        </Link>
                     </div>
                 </section>
             </main>
 
-            <footer className="bg-blue-100 py-6 mt-5">
+            <footer className="bg-blue-100 py-6 mt-12">
                 <div className="flex justify-center gap-2 mb-4">
                     {[1, 2, 3, 4].map((_, idx) => (
                         <span key={idx} className="w-4 h-4 bg-blue-400 rounded-full inline-block" />
