@@ -43,7 +43,7 @@ export default function LoginPage() {
             <div className="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 space-y-6">
                 <div className="flex flex-col items-center">
                     <Image src="/images/logo.png" width={72} height={72} alt="Logo" />
-                    <h2 className="mt-4 text-3xl font-extrabold text-gray-900">Welcome Back</h2>
+                    <h2 className="mt-4 text-3xl font-extrabold text-gray-900">Welcome</h2>
                     <p className="mt-2 text-gray-600">Sign in to continue</p>
                 </div>
                 {error && <p className="text-red-500 text-center">{error}</p>}
