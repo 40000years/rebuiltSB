@@ -3,20 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build --no-lint",
     "start": "next start -p $PORT",
     "lint": "next lint"
   },
   "dependencies": {
+    "@tsparticles/all": "^3.8.1",
+    "@tsparticles/engine": "^3.8.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
     "axios": "^1.9.0",
     "chart.js": "^4.4.9",
     "next": "^14.2.28",
     "postcss": "8.4.38",
     "react": "^18",
     "react-dom": "^18",
+    "react-tsparticles": "^2.12.2",
     "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "tsparticles": "^3.8.1"
   },
   "devDependencies": {
     "eslint": "^8",

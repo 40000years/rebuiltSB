@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Particles from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
 
 function isTokenExpired(token) {
     try {
@@ -320,22 +322,118 @@ export default function ApplyPage() {
                 </section>
             </main>
 
-            <footer className="bg-blue-100 py-6">
-                <div className="flex justify-center gap-2 mb-4">
-                    {[1, 2, 3, 4].map((_, idx) => (
-                        <span key={idx} className="w-4 h-4 bg-blue-400 rounded-full inline-block" />
-                    ))}
+                       <footer className="relative w-full h-[200px] bg-gradient-to-r from-indigo-900 via-blue-800 to-cyan-700 text-white mt-auto overflow-hidden">
+                <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.15),transparent_80%)]">
+                    <Particles
+                        id="tsparticles"
+                        init={particlesInit}
+                        options={{
+                            background: {
+                                color: {
+                                    value: 'transparent',
+                                },
+                            },
+                            fullScreen: { enable: false },
+                            fpsLimit: 120,
+                            particles: {
+                                number: {
+                                    value: 60,
+                                    density: {
+                                        enable: true,
+                                        value_area: 800,
+                                    },
+                                },
+                                color: {
+                                    value: ['#00f4ff', '#ff5aff', '#ffffff'],
+                                    animation: {
+                                        enable: true,
+                                        speed: 2,
+                                        sync: false,
+                                    },
+                                },
+                                shape: {
+                                    type: 'circle',
+                                },
+                                opacity: {
+                                    value: { min: 0.3, max: 0.8 },
+                                    animation: {
+                                        enable: true,
+                                        speed: 1.5,
+                                        minimumValue: 0.3,
+                                        sync: false,
+                                    },
+                                },
+                                size: {
+                                    value: { min: 1, max: 5 },
+                                    animation: {
+                                        enable: true,
+                                        speed: 3,
+                                        minimumValue: 1,
+                                        sync: false,
+                                    },
+                                },
+                                links: {
+                                    enable: true,
+                                    distance: 150,
+                                    color: {
+                                        value: '#00f4ff',
+                                    },
+                                    opacity: 0.4,
+                                    width: 1,
+                                },
+                                move: {
+                                    enable: true,
+                                    speed: { min: 0.5, max: 2 },
+                                    direction: 'none',
+                                    outModes: {
+                                        default: 'bounce',
+                                    },
+                                    attract: {
+                                        enable: true,
+                                        rotateX: 800,
+                                        rotateY: 800,
+                                    },
+                                },
+                            },
+                            interactivity: {
+                                events: {
+                                    onHover: {
+                                        enable: true,
+                                        mode: 'grab',
+                                    },
+                                    onClick: {
+                                        enable: true,
+                                        mode: 'bubble',
+                                    },
+                                },
+                                modes: {
+                                    grab: {
+                                        distance: 200,
+                                        links: {
+                                            opacity: 0.6,
+                                        },
+                                    },
+                                    bubble: {
+                                        distance: 300,
+                                        size: 8,
+                                        opacity: 0.7,
+                                        duration: 1.5,
+                                    },
+                                },
+                            },
+                            detectRetina: true,
+                        }}
+                    />
                 </div>
-                <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-blue-800">
-                    <span>About Our School</span>
+                <div className="relative z-10 container mx-auto px-6 py-10 text-center flex flex-col items-center gap-6">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-wider animate-holographic text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-pink-300">
+                        โรงเรียนแห่งอนาคต 🌌
+                    </h2>
                     <button
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="relative text-blue-800 font-medium group mt-2 sm:mt-0"
+                        className="px-8 py-3 bg-transparent border-2 border-cyan-400 text-cyan-200 font-semibold rounded-full shadow-[0_0_10px_rgba(0,255,255,0.6)] hover:bg-cyan-500 hover:text-white hover:shadow-[0_0_20px_rgba(0,255,255,0.9)] hover:scale-105 transition-all duration-500 animate-pulse-slow"
                     >
-                        <span className="relative inline-block px-1">
-                            Back to top ↑
-                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 group-hover:w-full transition-all duration-300" />
-                        </span>
+                        ↑ สู่จุดเริ่มต้น
                     </button>
                 </div>
             </footer>

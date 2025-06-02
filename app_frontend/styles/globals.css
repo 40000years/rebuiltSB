@@ -161,3 +161,45 @@ body {
   border-radius: 1rem;
   z-index: 1;
 }
+@keyframes holographic {
+    0%, 100% {
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.6), 0 0 15px rgba(255, 105, 180, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.9), 0 0 25px rgba(255, 105, 180, 0.7);
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-slow {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    }
+    50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+}
+
+.animate-holographic {
+    animation: holographic 2.5s ease-in-out infinite;
+}
+
+.animate-slide-up {
+    animation: slide-up 1.5s ease-out forwards;
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+}

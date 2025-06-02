@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import Particles from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
 
 function isTokenExpired(token) {
     try {
@@ -22,6 +24,11 @@ export default function AboutPage() {
     const router = useRouter();
     const dropdownRef = useRef(null);
     const bgImages = ['/images/school-bg1.jpg', '/images/school-bg2.jpg', '/images/school-bg3.jpg'];
+
+    // Define particlesInit using useCallback
+    const particlesInit = useCallback(async (engine) => {
+        await loadSlim(engine);
+    }, []);
 
     useEffect(() => {
         function checkAuth() {
@@ -70,7 +77,7 @@ export default function AboutPage() {
             setBgIndex((prev) => (prev + 1) % bgImages.length);
         }, 5000);
         return () => clearInterval(interval);
-    }, []);
+    }, [bgImages.length]);
 
     return (
         <div className="relative flex flex-col min-h-screen">
@@ -241,22 +248,118 @@ export default function AboutPage() {
                 </section>
             </main>
 
-            <footer className="bg-blue-100 py-6 mt-5">
-                <div className="flex justify-center gap-2 mb-4">
-                    {[1, 2, 3, 4].map((_, idx) => (
-                        <span key={idx} className="w-4 h-4 bg-blue-400 rounded-full inline-block" />
-                    ))}
+            <footer className="relative w-full h-[180px] bg-gradient-to-r from-blue-950 via-indigo-900 to-cyan-800 text-white mt-auto overflow-hidden">
+                <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.2),transparent_70%)]">
+                    <Particles
+                        id="tsparticles"
+                        init={particlesInit}
+                        options={{
+                            background: {
+                                color: {
+                                    value: 'transparent',
+                                },
+                            },
+                            fullScreen: { enable: false },
+                            fpsLimit: 120,
+                            particles: {
+                                number: {
+                                    value: 50,
+                                    density: {
+                                        enable: true,
+                                        value_area: 700,
+                                    },
+                                },
+                                color: {
+                                    value: ['#00e7ff', '#ff4bff', '#ffffff'],
+                                    animation: {
+                                        enable: true,
+                                        speed: 2.5,
+                                        sync: false,
+                                    },
+                                },
+                                shape: {
+                                    type: 'circle',
+                                },
+                                opacity: {
+                                    value: { min: 0.2, max: 0.7 },
+                                    animation: {
+                                        enable: true,
+                                        speed: 1,
+                                        minimumValue: 0.2,
+                                        sync: false,
+                                    },
+                                },
+                                size: {
+                                    value: { min: 1, max: 4 },
+                                    animation: {
+                                        enable: true,
+                                        speed: 2,
+                                        minimumValue: 1,
+                                        sync: false,
+                                    },
+                                },
+                                links: {
+                                    enable: true,
+                                    distance: 120,
+                                    color: {
+                                        value: '#00e7ff',
+                                    },
+                                    opacity: 0.5,
+                                    width: 0.8,
+                                },
+                                move: {
+                                    enable: true,
+                                    speed: { min: 0.3, max: 1.5 },
+                                    direction: 'none',
+                                    outModes: {
+                                        default: 'bounce',
+                                    },
+                                    attract: {
+                                        enable: true,
+                                        rotateX: 600,
+                                        rotateY: 600,
+                                    },
+                                },
+                            },
+                            interactivity: {
+                                events: {
+                                    onHover: {
+                                        enable: true,
+                                        mode: 'grab',
+                                    },
+                                    onClick: {
+                                        enable: true,
+                                        mode: 'bubble',
+                                    },
+                                },
+                                modes: {
+                                    grab: {
+                                        distance: 150,
+                                        links: {
+                                            opacity: 0.7,
+                                        },
+                                    },
+                                    bubble: {
+                                        distance: 200,
+                                        size: 6,
+                                        opacity: 0.8,
+                                        duration: 1,
+                                    },
+                                },
+                            },
+                            detectRetina: true,
+                        }}
+                    />
                 </div>
-                <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-blue-800">
-                    <span>About Our School</span>
+                <div className="relative z-10 container mx-auto px-4 py-8 text-center flex flex-col items-center gap-4">
+                    <h2 className="text-2xl sm:text-3xl font-bold tracking-wide animate-holographic text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-pink-400">
+                        โรงเรียนแห่งอนาคต 🌌
+                    </h2>
                     <button
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="relative text-blue-800 font-medium group mt-2 sm:mt-0"
+                        className="px-6 py-2 bg-transparent border-2 border-cyan-400 text-cyan-200 font-semibold rounded-full shadow-[0_0_8px_rgba(0,255,255,0.7)] hover:bg-cyan-600 hover:text-white hover:shadow-[0_0_15px_rgba(0,255,255,0.9)] hover:scale-105 transition-all duration-400 animate-pulse-slow"
                     >
-                        <span className="relative inline-block px-1">
-                            Back to top ↑
-                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 group-hover:w-full transition-all duration-300" />
-                        </span>
+                        ↑ สู่จุดเริ่มต้น
                     </button>
                 </div>
             </footer>
